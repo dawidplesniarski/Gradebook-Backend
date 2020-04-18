@@ -1,5 +1,6 @@
 package com.plesniarski.gradebook.controller;
 
+import com.plesniarski.gradebook.domain.dto.UserDto;
 import com.plesniarski.gradebook.domain.entity.User;
 import com.plesniarski.gradebook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class UserController {
     }
 
     @PostMapping("/addUser")
-    public ResponseEntity<User> addUser(@RequestBody User user){
+    public ResponseEntity<User> addUser(@RequestBody UserDto user){
         final User u = userService.addUser(user);
         return ResponseEntity.ok(u);
     }
