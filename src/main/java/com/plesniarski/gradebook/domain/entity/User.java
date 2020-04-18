@@ -1,5 +1,6 @@
 package com.plesniarski.gradebook.domain.entity;
 
+import com.plesniarski.gradebook.domain.dto.UserDto;
 import com.sun.istack.NotNull;
 import org.springframework.lang.NonNull;
 
@@ -72,6 +73,10 @@ public class User {
         public User build(){
             return new User(this);
         }
+    }
+
+    public UserDto dto(){
+        return new UserDto.Builder().id(getUserId()).name(getName()).lastName(getLastName()).albumNo(getAlbumNo()).build();
     }
 
 }

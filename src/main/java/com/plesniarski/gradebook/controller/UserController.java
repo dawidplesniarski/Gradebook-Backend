@@ -2,6 +2,7 @@ package com.plesniarski.gradebook.controller;
 
 import com.plesniarski.gradebook.domain.dto.UserDto;
 import com.plesniarski.gradebook.domain.entity.User;
+import com.plesniarski.gradebook.exceptions.UserNotFoundException;
 import com.plesniarski.gradebook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,5 +31,11 @@ public class UserController {
     public ResponseEntity<List<User>> findAllUsers(){
         final List<User> users = userService.findAllUsers();
         return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/getUser/{id}")
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) throws UserNotFoundException {
+        final UserDto user = userService.findUserById(id);
+        return ResponseEntity.ok(user);
     }
 }
