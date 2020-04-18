@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto findUserById(long id) throws UserNotFoundException {
-        Optional<User> user = userRepository.findById(id);
+        //Optional<User> user = userRepository.findById(id);
         return userRepository.findById(id).orElseThrow(UserNotFoundException::new).dto();
     }
 

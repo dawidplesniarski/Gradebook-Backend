@@ -16,6 +16,7 @@ public class User {
     private String name;
     private String lastName;
     private Long albumNo;
+    private Boolean admin;
 
     public User(){}
 
@@ -24,6 +25,7 @@ public class User {
         name = builder.name;
         lastName = builder.lastName;
         albumNo = builder.albumNo;
+        admin = builder.admin;
     }
 
     public Long getUserId() {
@@ -42,11 +44,16 @@ public class User {
         return albumNo;
     }
 
+    public Boolean isAdmin() {
+        return admin;
+    }
+
     public static final class Builder{
         private Long userId;
         private String name;
         private String lastName;
         private Long albumNo;
+        private Boolean admin;
 
         public Builder(){}
 
@@ -67,6 +74,10 @@ public class User {
 
         public Builder albumNo(Long albumNo){
             this.albumNo = albumNo;
+            return this;
+        }
+        public Builder admin(boolean admin){
+            this.admin = admin;
             return this;
         }
 

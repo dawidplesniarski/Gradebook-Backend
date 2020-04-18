@@ -9,6 +9,7 @@ public class UserDto implements Serializable {
     private String name;
     private String lastName;
     private Long albumNo;
+    private boolean admin;
 
     public UserDto(){}
 
@@ -17,6 +18,7 @@ public class UserDto implements Serializable {
         name = builder.name;
         lastName = builder.lastName;
         albumNo = builder.albumNo;
+        admin = builder.admin;
     }
 
     public Long getUserId() {
@@ -35,11 +37,16 @@ public class UserDto implements Serializable {
         return albumNo;
     }
 
+    public boolean isAdmin() {
+        return admin;
+    }
+
     public static final class Builder{
         private Long userId;
         private String name;
         private String lastName;
         private Long albumNo;
+        private boolean admin;
 
         public Builder id(Long userId){
             this.userId = userId;
@@ -55,6 +62,10 @@ public class UserDto implements Serializable {
         }
         public Builder albumNo(Long albumNo){
             this.albumNo = albumNo;
+            return this;
+        }
+        public Builder admin(boolean admin){
+            this.admin = admin;
             return this;
         }
 
