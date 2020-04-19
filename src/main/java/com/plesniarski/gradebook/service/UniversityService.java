@@ -4,7 +4,10 @@ import com.plesniarski.gradebook.domain.dto.UniversityDto;
 import com.plesniarski.gradebook.domain.entity.University;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface UniversityService {
-    UniversityDto addUniversity(University university);
+    List<University> findAll();
+    University addUniversity(UniversityDto universityDto);
 }

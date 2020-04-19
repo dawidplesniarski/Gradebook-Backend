@@ -6,6 +6,14 @@ public class UniversityDto {
 
     public UniversityDto(){}
 
+    public Long getUniversityId() {
+        return universityId;
+    }
+
+    public String getUniversityName() {
+        return universityName;
+    }
+
     public UniversityDto(Builder builder){
         universityId = builder.universityId;
         universityName = builder.universityName;

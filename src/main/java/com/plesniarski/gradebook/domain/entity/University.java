@@ -3,7 +3,7 @@ package com.plesniarski.gradebook.domain.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="university")
+@Table(name="uczelnia")
 public class University {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +38,9 @@ public class University {
         public Builder universityName(String universityName){
             this.universityName = universityName;
             return this;
+        }
+        public University build(){
+            return new University(this);
         }
     }
 }
