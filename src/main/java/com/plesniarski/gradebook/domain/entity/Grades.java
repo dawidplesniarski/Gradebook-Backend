@@ -15,17 +15,38 @@ public class Grades {
 
     public Grades(){}
 
+    public long getId() {
+        return id;
+    }
+
+    public double getGrade() {
+        return grade;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
     public Grades(Builder builder){
         id = builder.id;
         grade = builder.grade;
         date = builder.date;
+        user = builder.user;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    User user;
 
     public static final class Builder{
         private long id;
         private double grade;
         private LocalDateTime date;
+        private User user;
 
         public Builder id(long id){
             this.id = id;
@@ -39,6 +60,11 @@ public class Grades {
 
         public Builder date(LocalDateTime date){
             this.date = date;
+            return this;
+        }
+
+        public Builder user(User user){
+            this.user = user;
             return this;
         }
 

@@ -1,7 +1,5 @@
 package com.plesniarski.gradebook.domain.dto;
 
-import com.plesniarski.gradebook.domain.entity.User;
-
 import java.io.Serializable;
 
 public class UserDto implements Serializable {

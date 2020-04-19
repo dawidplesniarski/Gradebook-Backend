@@ -2,8 +2,6 @@ package com.plesniarski.gradebook.domain.entity;
 
 import com.plesniarski.gradebook.domain.dto.UserDto;
 import com.sun.istack.NotNull;
-import org.springframework.lang.NonNull;
-
 import javax.persistence.*;
 
 @Entity
@@ -27,6 +25,10 @@ public class User {
         albumNo = builder.albumNo;
         admin = builder.admin;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "universityId")
+    University university;
 
     public Long getUserId() {
         return userId;
