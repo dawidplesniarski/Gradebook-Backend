@@ -10,19 +10,19 @@ public class University {
     private Long universityId;
     private String universityName;
 
+    public University(){}
+
+    public University(Builder builder){
+        universityId = builder.universityId;
+        universityName = builder.universityName;
+    }
+
     public Long getUniversityId() {
         return universityId;
     }
 
     public String getUniversityName() {
         return universityName;
-    }
-
-    public University(){}
-
-    public University(Builder builder){
-        universityId = builder.universityId;
-        universityName = builder.universityName;
     }
 
     public static final class Builder{

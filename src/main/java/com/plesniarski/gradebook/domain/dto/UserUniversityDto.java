@@ -1,33 +1,21 @@
-package com.plesniarski.gradebook.domain.entity;
+package com.plesniarski.gradebook.domain.dto;
 
-import com.plesniarski.gradebook.domain.dto.UserDto;
-import com.sun.istack.NotNull;
-import javax.persistence.*;
-
-@Entity
-@Table(name = "studenciak")
-public class User {
-    @Id
-    @NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UserUniversityDto {
     private Long userId;
     private String name;
     private String lastName;
     private Long albumNo;
     private Boolean admin;
-    private Long universityId;
+    private String universityName;
 
-    public User(){}
-
-    public User(Builder builder){
+    public UserUniversityDto(Builder builder){
         userId = builder.userId;
         name = builder.name;
         lastName = builder.lastName;
         albumNo = builder.albumNo;
         admin = builder.admin;
-        universityId = builder.universityId;
+        universityName = builder.universityName;
     }
-
 
     public Long getUserId() {
         return userId;
@@ -45,11 +33,12 @@ public class User {
         return albumNo;
     }
 
-    public Boolean isAdmin() {
+    public Boolean getAdmin() {
         return admin;
     }
-    public Long getUniversityId(){
-        return universityId;
+
+    public String getUniversityName() {
+        return universityName;
     }
 
     public static final class Builder{
@@ -58,51 +47,36 @@ public class User {
         private String lastName;
         private Long albumNo;
         private Boolean admin;
-        private Long universityId;
+        private String universityName;
 
-        public Builder(){}
-
-        public Builder id(Long userId){
+        public Builder userId(Long userId){
             this.userId = userId;
             return this;
         }
-
         public Builder name(String name){
             this.name = name;
             return this;
         }
-
         public Builder lastName(String lastName){
             this.lastName = lastName;
             return this;
         }
-
         public Builder albumNo(Long albumNo){
             this.albumNo = albumNo;
             return this;
         }
-        public Builder admin(boolean admin){
+        public Builder isAdmin(Boolean admin){
             this.admin = admin;
             return this;
         }
-        public Builder universityId(Long universityId){
-            this.universityId = universityId;
+        public Builder universityName(String universityName){
+            this.universityName = universityName;
             return this;
         }
 
-        public User build(){
-            return new User(this);
+        public UserUniversityDto build(){
+            return new UserUniversityDto(this);
         }
-    }
 
-    public UserDto dto(){
-        return new UserDto.Builder()
-                .id(getUserId())
-                .name(getName())
-                .lastName(getLastName())
-                .albumNo(getAlbumNo())
-                .universityId(getUniversityId())
-                .build();
     }
-
 }

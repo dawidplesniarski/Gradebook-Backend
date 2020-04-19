@@ -1,6 +1,7 @@
 package com.plesniarski.gradebook.controller;
 
 import com.plesniarski.gradebook.domain.dto.UserDto;
+import com.plesniarski.gradebook.domain.dto.UserUniversityDto;
 import com.plesniarski.gradebook.domain.entity.User;
 import com.plesniarski.gradebook.exceptions.UserNotFoundException;
 import com.plesniarski.gradebook.service.UserService;
@@ -34,8 +35,8 @@ public class UserController {
     }
 
     @GetMapping("/getUser/{id}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) throws UserNotFoundException {
-        final UserDto user = userService.findUserById(id);
+    public ResponseEntity<UserUniversityDto> getUserById(@PathVariable Long id) throws UserNotFoundException {
+        final UserUniversityDto user = userService.findUserById(id);
         return ResponseEntity.ok(user);
     }
 }

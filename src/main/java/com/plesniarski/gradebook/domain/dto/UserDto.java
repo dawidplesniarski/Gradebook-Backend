@@ -8,6 +8,7 @@ public class UserDto implements Serializable {
     private String lastName;
     private Long albumNo;
     private boolean admin;
+    private Long universityId;
 
     public UserDto(){}
 
@@ -17,6 +18,7 @@ public class UserDto implements Serializable {
         lastName = builder.lastName;
         albumNo = builder.albumNo;
         admin = builder.admin;
+        universityId = builder.universityId;
     }
 
     public Long getUserId() {
@@ -39,12 +41,17 @@ public class UserDto implements Serializable {
         return admin;
     }
 
+    public Long getUniversityId() {
+        return universityId;
+    }
+
     public static final class Builder{
         private Long userId;
         private String name;
         private String lastName;
         private Long albumNo;
         private boolean admin;
+        private Long universityId;
 
         public Builder id(Long userId){
             this.userId = userId;
@@ -64,6 +71,10 @@ public class UserDto implements Serializable {
         }
         public Builder admin(boolean admin){
             this.admin = admin;
+            return this;
+        }
+        public Builder universityId(Long universityId){
+            this.universityId = universityId;
             return this;
         }
 
