@@ -17,6 +17,22 @@ public class GradesDto {
         studentId = builder.studentId;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public Double getGrade() {
+        return grade;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public Long getStudentId() {
+        return studentId;
+    }
+
     public static final class Builder{
         private Long id;
         private Double grade;

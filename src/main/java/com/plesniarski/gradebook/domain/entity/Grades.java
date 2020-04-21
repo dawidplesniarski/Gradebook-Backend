@@ -1,5 +1,7 @@
 package com.plesniarski.gradebook.domain.entity;
 
+import com.plesniarski.gradebook.domain.dto.GradesDto;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -16,7 +18,14 @@ public class Grades {
 
     public Grades(){}
 
-    public long getId() {
+    public Grades(Builder builder){
+        id = builder.id;
+        grade = builder.grade;
+        date = builder.date;
+        studentId = builder.studentId;
+    }
+
+    public Long getId() {
         return id;
     }
 
@@ -32,17 +41,10 @@ public class Grades {
         return studentId;
     }
 
-    public Grades(Builder builder){
-        id = builder.id;
-        grade = builder.grade;
-        date = builder.date;
-        studentId = builder.studentId;
-    }
-
 
     public static final class Builder{
         private Long id;
-        private double grade;
+        private Double grade;
         private LocalDateTime date;
         private Long studentId;
 
@@ -51,13 +53,13 @@ public class Grades {
             return this;
         }
 
-        public Builder grade(double grade){
+        public Builder grade(Double grade){
             this.grade = grade;
             return this;
         }
 
-        public Builder date(LocalDateTime date){
-            this.date = date;
+        public Builder date(LocalDateTime now){
+            this.date = now;
             return this;
         }
         public Builder studentId(Long studentId){
@@ -69,6 +71,10 @@ public class Grades {
             return new Grades(this);
         }
 
+    }
+
+    public GradesDto dto(){
+        return new GradesDto.Builder().id(getId()).grade(getGrade()).date(getDate()).studentId(getStudentId()).build();
     }
 
 
