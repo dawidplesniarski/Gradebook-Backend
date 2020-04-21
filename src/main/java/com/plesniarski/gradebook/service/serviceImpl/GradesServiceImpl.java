@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class GradesServiceImpl implements GradeService {
@@ -29,5 +31,10 @@ public class GradesServiceImpl implements GradeService {
         gradesRepository.save(grades);
 
         return grades;
+    }
+
+    @Override
+    public List<GradesDto> findAll() {
+        return gradesRepository.findAll().stream().map(Grades::dto).collect(Collectors.toList());
     }
 }

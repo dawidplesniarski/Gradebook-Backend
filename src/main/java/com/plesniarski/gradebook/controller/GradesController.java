@@ -5,10 +5,9 @@ import com.plesniarski.gradebook.domain.entity.Grades;
 import com.plesniarski.gradebook.service.GradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/grades")
@@ -24,6 +23,11 @@ public class GradesController {
     @PostMapping("/addGrade")
     public ResponseEntity<Grades> addGrade(@RequestBody GradesDto gradesDto){
         final Grades grades = gradeService.addGrade(gradesDto);
+        return ResponseEntity.ok(grades);
+    }
+    @GetMapping("/getAllGrades")
+    public ResponseEntity<List<GradesDto>> findAll(){
+        List<GradesDto> grades = gradeService.findAll();
         return ResponseEntity.ok(grades);
     }
 }
