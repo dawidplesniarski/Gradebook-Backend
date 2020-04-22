@@ -1,29 +1,24 @@
-package com.plesniarski.gradebook.domain.entity;
+package com.plesniarski.gradebook.authentication;
 
 import com.plesniarski.gradebook.domain.dto.AllUsersDto;
-import com.plesniarski.gradebook.domain.dto.UserDto;
-import com.sun.istack.NotNull;
-import javax.persistence.*;
 
-@Entity
-@Table(name = "studenciak")
-public class User {
-    @Id
-    @NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+import java.io.Serializable;
+
+public class LoggedUser implements Serializable {
+    private String token;
     private Long userId;
     private String name;
     private String lastName;
     private Long albumNo;
-    private Boolean admin;
+    private boolean admin;
     private Long universityId;
     private String login;
-    private String password;
     private String course;
 
-    public User(){}
+    public LoggedUser(){}
 
-    public User(Builder builder){
+    public LoggedUser(Builder builder){
+        token = builder.token;
         userId = builder.userId;
         name = builder.name;
         lastName = builder.lastName;
@@ -31,10 +26,8 @@ public class User {
         admin = builder.admin;
         universityId = builder.universityId;
         login = builder.login;
-        password = builder.password;
         course = builder.course;
     }
-
 
     public Long getUserId() {
         return userId;
@@ -52,52 +45,53 @@ public class User {
         return albumNo;
     }
 
-    public Boolean isAdmin() {
+    public boolean isAdmin() {
         return admin;
     }
 
-    public Long getUniversityId(){
+    public Long getUniversityId() {
         return universityId;
     }
+
     public String getLogin() {
         return login;
-    }
-    public String getPassword() {
-        return password;
     }
 
     public String getCourse() {
         return course;
     }
 
+    public String getToken() {
+        return token;
+    }
+
     public static final class Builder{
+        private String token;
         private Long userId;
         private String name;
         private String lastName;
         private Long albumNo;
-        private Boolean admin;
+        private boolean admin;
         private Long universityId;
         private String login;
-        private String password;
         private String course;
 
-        public Builder(){}
-
+        public Builder token(String token){
+            this.token = token;
+            return this;
+        }
         public Builder id(Long userId){
             this.userId = userId;
             return this;
         }
-
         public Builder name(String name){
             this.name = name;
             return this;
         }
-
         public Builder lastName(String lastName){
             this.lastName = lastName;
             return this;
         }
-
         public Builder albumNo(Long albumNo){
             this.albumNo = albumNo;
             return this;
@@ -114,42 +108,14 @@ public class User {
             this.login = login;
             return this;
         }
-        public Builder password(String password){
-            this.password = password;
-            return this;
-        }
         public Builder course(String course){
             this.course = course;
             return this;
         }
 
-        public User build(){
-            return new User(this);
+        public LoggedUser build(){
+            return new LoggedUser(this);
         }
-    }
-
-    public UserDto dto(){
-        return new UserDto.Builder()
-                .id(getUserId())
-                .name(getName())
-                .lastName(getLastName())
-                .albumNo(getAlbumNo())
-                .universityId(getUniversityId())
-                .course(getCourse())
-                .build();
-    }
-    public AllUsersDto dtoWithoutPass(){
-        return new AllUsersDto.Builder()
-                .id(getUserId())
-                .name(getName())
-                .lastName(getLastName())
-                .albumNo(getAlbumNo())
-                .admin(isAdmin())
-                .universityId(getUniversityId())
-                .course(getCourse())
-                .login(getLogin())
-                .build();
 
     }
-
 }

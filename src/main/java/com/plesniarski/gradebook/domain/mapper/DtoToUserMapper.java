@@ -16,6 +16,9 @@ public class DtoToUserMapper implements Converter<UserDto, User> {
                 .albumNo(from.getAlbumNo())
                 .admin(from.isAdmin())
                 .universityId(from.getUniversityId())
+                .login(from.getLogin())
+                .password(from.getPassword())
+                .course(from.getCourse())
                 .build();
     }
 }
