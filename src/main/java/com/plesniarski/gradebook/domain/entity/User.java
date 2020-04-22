@@ -16,6 +16,9 @@ public class User {
     private Long albumNo;
     private Boolean admin;
     private Long universityId;
+    private String login;
+    private String password;
+    private String course;
 
     public User(){}
 
@@ -26,6 +29,9 @@ public class User {
         albumNo = builder.albumNo;
         admin = builder.admin;
         universityId = builder.universityId;
+        login = builder.login;
+        password = builder.password;
+        course = builder.course;
     }
 
 
@@ -48,8 +54,19 @@ public class User {
     public Boolean isAdmin() {
         return admin;
     }
+
     public Long getUniversityId(){
         return universityId;
+    }
+    public String getLogin() {
+        return login;
+    }
+    public String getPassword() {
+        return password;
+    }
+
+    public String getCourse() {
+        return course;
     }
 
     public static final class Builder{
@@ -59,6 +76,9 @@ public class User {
         private Long albumNo;
         private Boolean admin;
         private Long universityId;
+        private String login;
+        private String password;
+        private String course;
 
         public Builder(){}
 
@@ -89,6 +109,18 @@ public class User {
             this.universityId = universityId;
             return this;
         }
+        public Builder login(String login){
+            this.login = login;
+            return this;
+        }
+        public Builder password(String password){
+            this.password = password;
+            return this;
+        }
+        public Builder course(String course){
+            this.course = course;
+            return this;
+        }
 
         public User build(){
             return new User(this);
@@ -102,6 +134,7 @@ public class User {
                 .lastName(getLastName())
                 .albumNo(getAlbumNo())
                 .universityId(getUniversityId())
+                .course(getCourse())
                 .build();
     }
 

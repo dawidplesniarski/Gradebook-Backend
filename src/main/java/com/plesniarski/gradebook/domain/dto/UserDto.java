@@ -9,6 +9,9 @@ public class UserDto implements Serializable {
     private Long albumNo;
     private boolean admin;
     private Long universityId;
+    private String login;
+    private String password;
+    private String course;
 
     public UserDto(){}
 
@@ -19,6 +22,9 @@ public class UserDto implements Serializable {
         albumNo = builder.albumNo;
         admin = builder.admin;
         universityId = builder.universityId;
+        login = builder.login;
+        password = builder.password;
+        course = builder.course;
     }
 
     public Long getUserId() {
@@ -45,6 +51,18 @@ public class UserDto implements Serializable {
         return universityId;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
     public static final class Builder{
         private Long userId;
         private String name;
@@ -52,6 +70,9 @@ public class UserDto implements Serializable {
         private Long albumNo;
         private boolean admin;
         private Long universityId;
+        private String login;
+        private String password;
+        private String course;
 
         public Builder id(Long userId){
             this.userId = userId;
@@ -75,6 +96,18 @@ public class UserDto implements Serializable {
         }
         public Builder universityId(Long universityId){
             this.universityId = universityId;
+            return this;
+        }
+        public Builder login(String login){
+            this.login = login;
+            return this;
+        }
+        public Builder password(String password){
+            this.password = password;
+            return this;
+        }
+        public Builder course(String course){
+            this.course = course;
             return this;
         }
 

@@ -45,7 +45,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserUniversityDto findUserById(long id) throws UserNotFoundException {
         UserDto user = userRepository.findById(id).orElseThrow(UserNotFoundException::new).dto();
-        System.out.println("Univer id " + user.getUserId());
         Optional<University> university = universityRepository.findById(user.getUniversityId());
         return new UserUniversityDto.Builder()
                 .userId(user.getUserId())
