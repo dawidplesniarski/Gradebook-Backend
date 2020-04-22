@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -47,38 +46,6 @@ public class UserController {
     }
     @PostMapping("/login")
     public LoggedUser login(@RequestBody LoginUser loginUser){
-        String token;
-        Long now = System.currentTimeMillis();
-        if(userService.loginValidation(loginUser)){
-            token = Jwts.builder()
-                .setSubject(loginUser.getLogin())
-                .claim("roles","user")
-                .setIssuedAt(new Date(now))
-                .setExpiration(new Date(now + 20000))
-                .signWith(SignatureAlgorithm.HS512, loginUser.getPassword())
-                .compact();
-            AllUsersDto user = userService.getLoggedUser(loginUser);
-            return new LoggedUser.Builder()
-                    .token(token)
-                    .id(user.getUserId())
-                    .name(user.getName())
-                    .lastName(user.getLastName())
-                    .albumNo(user.getAlbumNo())
-                    .admin(user.isAdmin())
-                    .universityId(user.getUniversityId())
-                    .login(user.getLogin())
-                    .course(user.getCourse())
-                    .build();
-        }
-        return null;
+        return userService.loggedUser(loginUser);
     }
 }
-//    private String token;
-//    private Long userId;
-//    private String name;
-//    private String lastName;
-//    private Long albumNo;
-//    private boolean admin;
-//    private Long universityId;
-//    private String login;
-//    private String course;

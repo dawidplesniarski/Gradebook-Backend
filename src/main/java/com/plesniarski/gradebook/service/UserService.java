@@ -1,5 +1,6 @@
 package com.plesniarski.gradebook.service;
 
+import com.plesniarski.gradebook.authentication.LoggedUser;
 import com.plesniarski.gradebook.authentication.LoginUser;
 import com.plesniarski.gradebook.domain.dto.AllUsersDto;
 import com.plesniarski.gradebook.domain.dto.UserDto;
@@ -15,4 +16,5 @@ public interface UserService {
     UserUniversityDto findUserById(long id) throws UserNotFoundException;
     Boolean loginValidation(LoginUser loginUser);
     AllUsersDto getLoggedUser(LoginUser loginUser);
+    LoggedUser loggedUser(LoginUser loginUser);
     }
