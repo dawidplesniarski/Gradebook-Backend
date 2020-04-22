@@ -1,9 +1,12 @@
 package com.plesniarski.gradebook.service.serviceImpl;
 
+import com.plesniarski.gradebook.authentication.LoginUser;
 import com.plesniarski.gradebook.domain.converter.Converter;
+import com.plesniarski.gradebook.domain.dto.AllUsersDto;
 import com.plesniarski.gradebook.domain.dto.UniversityDto;
 import com.plesniarski.gradebook.domain.dto.UserDto;
 import com.plesniarski.gradebook.domain.dto.UserUniversityDto;
+import com.plesniarski.gradebook.domain.entity.Grades;
 import com.plesniarski.gradebook.domain.entity.University;
 import com.plesniarski.gradebook.domain.entity.User;
 import com.plesniarski.gradebook.domain.repository.UniversityRepository;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -38,8 +42,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
+    public List<AllUsersDto> findAllUsers() {
+        return userRepository.findAll().stream().map(User::dtoWithoutPass).collect(Collectors.toList());
     }
 
     @Override
@@ -54,6 +58,18 @@ public class UserServiceImpl implements UserService {
                 .isAdmin(user.isAdmin())
                 .universityName(university.get().getUniversityName())
                 .build();
+    }
+
+    @Override
+    public Boolean loginValidation(LoginUser loginUser){
+        String login = loginUser.getLogin();
+        String password = loginUser.getPassword();
+        final User user = userRepository.findByLogin(login);
+        if(user.getPassword().equals(password)){
+            return true;
+        }
+
+        return false;
     }
 
 
