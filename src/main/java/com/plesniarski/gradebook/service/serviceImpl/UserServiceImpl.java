@@ -1,12 +1,11 @@
 package com.plesniarski.gradebook.service.serviceImpl;
 
+import com.plesniarski.gradebook.authentication.LoggedUser;
 import com.plesniarski.gradebook.authentication.LoginUser;
 import com.plesniarski.gradebook.domain.converter.Converter;
 import com.plesniarski.gradebook.domain.dto.AllUsersDto;
-import com.plesniarski.gradebook.domain.dto.UniversityDto;
 import com.plesniarski.gradebook.domain.dto.UserDto;
 import com.plesniarski.gradebook.domain.dto.UserUniversityDto;
-import com.plesniarski.gradebook.domain.entity.Grades;
 import com.plesniarski.gradebook.domain.entity.University;
 import com.plesniarski.gradebook.domain.entity.User;
 import com.plesniarski.gradebook.domain.repository.UniversityRepository;
@@ -68,8 +67,13 @@ public class UserServiceImpl implements UserService {
         if(user.getPassword().equals(password)){
             return true;
         }
-
         return false;
+    }
+
+    public AllUsersDto getLoggedUser(LoginUser loginUser){
+        String login = loginUser.getLogin();
+        final User user = userRepository.findByLogin(login);
+        return user.dtoWithoutPass();
     }
 
 

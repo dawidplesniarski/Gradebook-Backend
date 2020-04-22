@@ -14,4 +14,5 @@ public interface UserService {
     List<AllUsersDto> findAllUsers();
     UserUniversityDto findUserById(long id) throws UserNotFoundException;
     Boolean loginValidation(LoginUser loginUser);
-}
+    AllUsersDto getLoggedUser(LoginUser loginUser);
+    }

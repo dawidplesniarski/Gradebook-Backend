@@ -1,5 +1,6 @@
 package com.plesniarski.gradebook.controller;
 
+import com.plesniarski.gradebook.authentication.LoggedUser;
 import com.plesniarski.gradebook.authentication.LoginUser;
 import com.plesniarski.gradebook.domain.dto.AllUsersDto;
 import com.plesniarski.gradebook.domain.dto.UserDto;
@@ -45,16 +46,39 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
     @PostMapping("/login")
-    public String login(@RequestBody LoginUser loginUser){
+    public LoggedUser login(@RequestBody LoginUser loginUser){
+        String token;
         Long now = System.currentTimeMillis();
         if(userService.loginValidation(loginUser)){
-        return Jwts.builder()
+            token = Jwts.builder()
                 .setSubject(loginUser.getLogin())
                 .claim("roles","user")
                 .setIssuedAt(new Date(now))
                 .setExpiration(new Date(now + 20000))
                 .signWith(SignatureAlgorithm.HS512, loginUser.getPassword())
-                .compact();}
-        return "";
+                .compact();
+            AllUsersDto user = userService.getLoggedUser(loginUser);
+            return new LoggedUser.Builder()
+                    .token(token)
+                    .id(user.getUserId())
+                    .name(user.getName())
+                    .lastName(user.getLastName())
+                    .albumNo(user.getAlbumNo())
+                    .admin(user.isAdmin())
+                    .universityId(user.getUniversityId())
+                    .login(user.getLogin())
+                    .course(user.getCourse())
+                    .build();
+        }
+        return null;
     }
 }
+//    private String token;
+//    private Long userId;
+//    private String name;
+//    private String lastName;
+//    private Long albumNo;
+//    private boolean admin;
+//    private Long universityId;
+//    private String login;
+//    private String course;
