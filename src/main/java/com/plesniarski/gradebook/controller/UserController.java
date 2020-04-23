@@ -6,6 +6,7 @@ import com.plesniarski.gradebook.domain.dto.AllUsersDto;
 import com.plesniarski.gradebook.domain.dto.UserDto;
 import com.plesniarski.gradebook.domain.dto.UserUniversityDto;
 import com.plesniarski.gradebook.domain.entity.User;
+import com.plesniarski.gradebook.exceptions.LoginOrPasswordIncorrectException;
 import com.plesniarski.gradebook.exceptions.UserNotFoundException;
 import com.plesniarski.gradebook.service.UserService;
 import io.jsonwebtoken.Jwts;
@@ -45,7 +46,7 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
     @PostMapping("/login")
-    public LoggedUser login(@RequestBody LoginUser loginUser){
+    public LoggedUser login(@RequestBody LoginUser loginUser) throws LoginOrPasswordIncorrectException {
         return userService.loggedUser(loginUser);
     }
 }

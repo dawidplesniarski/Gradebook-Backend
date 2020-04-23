@@ -11,4 +11,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u.password from User u WHERE u.login = :userLogin ")
     String getPassword(String userLogin);
+    void deleteUserByUserId(Long id);
 }

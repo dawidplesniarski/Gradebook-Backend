@@ -10,6 +10,7 @@ import com.plesniarski.gradebook.domain.entity.University;
 import com.plesniarski.gradebook.domain.entity.User;
 import com.plesniarski.gradebook.domain.repository.UniversityRepository;
 import com.plesniarski.gradebook.domain.repository.UserRepository;
+import com.plesniarski.gradebook.exceptions.LoginOrPasswordIncorrectException;
 import com.plesniarski.gradebook.exceptions.UserNotFoundException;
 import com.plesniarski.gradebook.service.UserService;
 import io.jsonwebtoken.Jwts;
@@ -79,7 +80,7 @@ public class UserServiceImpl implements UserService {
         return user.dtoWithoutPass();
     }
 
-    public LoggedUser loggedUser(LoginUser loginUser){
+    public LoggedUser loggedUser(LoginUser loginUser) throws LoginOrPasswordIncorrectException {
         String token;
         Long now = System.currentTimeMillis();
 
@@ -102,10 +103,15 @@ public class UserServiceImpl implements UserService {
                     .login(user.getLogin())
                     .course(user.getCourse())
                     .build();
+        }else{
+            throw new LoginOrPasswordIncorrectException();
         }
-        return null;
     }
 
+    @Override
+    public void deleteUserById(Long id) {
+
+    }
 
 
 }
