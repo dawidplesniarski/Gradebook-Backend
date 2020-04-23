@@ -88,7 +88,6 @@ public class UserServiceImpl implements UserService {
                     .setSubject(loginUser.getLogin())
                     .claim("roles","user")
                     .setIssuedAt(new Date(now))
-                    .setExpiration(new Date(now + 20000))
                     .signWith(SignatureAlgorithm.HS512, loginUser.getPassword())
                     .compact();
             AllUsersDto user = getLoggedUser(loginUser);

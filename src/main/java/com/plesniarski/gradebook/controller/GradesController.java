@@ -30,4 +30,9 @@ public class GradesController {
         List<GradesDto> grades = gradeService.findAll();
         return ResponseEntity.ok(grades);
     }
+    @GetMapping("/getStudentGrades/{id}")
+    public ResponseEntity<List<GradesDto>> getStudentGrades(@PathVariable Long id){
+        final List<GradesDto> grades = gradeService.findByStudentId(id);
+        return ResponseEntity.ok(grades);
+    }
 }

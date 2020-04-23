@@ -8,4 +8,5 @@ import java.util.List;
 public interface GradeService {
     Grades addGrade(GradesDto gradesDto);
     List<GradesDto> findAll();
+    List<GradesDto> findByStudentId(Long studentId);
 }
