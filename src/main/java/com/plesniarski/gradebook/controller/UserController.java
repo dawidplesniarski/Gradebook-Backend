@@ -9,8 +9,6 @@ import com.plesniarski.gradebook.domain.entity.User;
 import com.plesniarski.gradebook.exceptions.LoginOrPasswordIncorrectException;
 import com.plesniarski.gradebook.exceptions.UserNotFoundException;
 import com.plesniarski.gradebook.service.UserService;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,5 +46,9 @@ public class UserController {
     @PostMapping("/login")
     public LoggedUser login(@RequestBody LoginUser loginUser) throws LoginOrPasswordIncorrectException {
         return userService.loggedUser(loginUser);
+    }
+    @DeleteMapping("/deleteUser/{id}")
+    public void deleteUser(@PathVariable Long id){
+        userService.deleteUserById(id);
     }
 }
