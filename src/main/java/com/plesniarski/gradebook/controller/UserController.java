@@ -38,7 +38,7 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/getUser/{id}")
+    @GetMapping("/findUser/{id}")
     public ResponseEntity<UserUniversityDto> getUserById(@PathVariable Long id) throws UserNotFoundException {
         final UserUniversityDto user = userService.findUserById(id);
         return ResponseEntity.ok(user);
@@ -51,9 +51,13 @@ public class UserController {
     public void deleteUser(@PathVariable Long id){
         userService.deleteUserById(id);
     }
-    @GetMapping("/getUsersByCourse/{course}")
+    @GetMapping("/findUsersByCourse/{course}")
     public ResponseEntity<List<AllUsersDto>> findUsersByCourse(@PathVariable String course){
         final List<AllUsersDto> users = userService.findUsersByCourse(course);
         return ResponseEntity.ok(users);
+    }
+    @GetMapping("findAllCourses")
+    public ResponseEntity<List<String>> findAllCourses(){
+        return ResponseEntity.ok(userService.findAllCourses());
     }
 }

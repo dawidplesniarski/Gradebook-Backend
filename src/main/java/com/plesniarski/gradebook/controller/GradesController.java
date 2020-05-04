@@ -25,12 +25,12 @@ public class GradesController {
         final Grades grades = gradeService.addGrade(gradesDto);
         return ResponseEntity.ok(grades);
     }
-    @GetMapping("/getAllGrades")
+    @GetMapping("/findAllGrades")
     public ResponseEntity<List<GradesDto>> findAll(){
         List<GradesDto> grades = gradeService.findAll();
         return ResponseEntity.ok(grades);
     }
-    @GetMapping("/getStudentGrades/{id}")
+    @GetMapping("/findStudentGrades/{id}")
     public ResponseEntity<List<GradesDto>> getStudentGrades(@PathVariable Long id){
         final List<GradesDto> grades = gradeService.findByStudentId(id);
         return ResponseEntity.ok(grades);

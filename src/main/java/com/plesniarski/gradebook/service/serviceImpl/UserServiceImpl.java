@@ -121,5 +121,10 @@ public class UserServiceImpl implements UserService {
         return userToListConverter.convert(userRepository.findAllByCourseContainsIgnoreCase(title));
     }
 
+    @Override
+    public List<String> findAllCourses() {
+        return userRepository.findCourses();
+    }
+
 
 }
