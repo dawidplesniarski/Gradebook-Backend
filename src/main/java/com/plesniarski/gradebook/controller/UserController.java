@@ -51,4 +51,9 @@ public class UserController {
     public void deleteUser(@PathVariable Long id){
         userService.deleteUserById(id);
     }
+    @GetMapping("/getUsersByCourse/{course}")
+    public ResponseEntity<List<AllUsersDto>> findUsersByCourse(@PathVariable String course){
+        final List<AllUsersDto> users = userService.findUsersByCourse(course);
+        return ResponseEntity.ok(users);
+    }
 }

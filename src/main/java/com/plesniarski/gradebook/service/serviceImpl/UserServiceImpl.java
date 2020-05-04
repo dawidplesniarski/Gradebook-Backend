@@ -29,13 +29,15 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final Converter<UserDto, User> convertUserToEntity;
     private final UniversityRepository universityRepository;
+    private final Converter<List<User>,List<AllUsersDto>> userToListConverter;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
-                           Converter<UserDto, User> convertToEntity, UniversityRepository universityRepository) {
+                           Converter<UserDto, User> convertToEntity, UniversityRepository universityRepository, Converter<List<User>, List<AllUsersDto>> userToListConverter) {
         this.userRepository = userRepository;
         this.convertUserToEntity = convertToEntity;
         this.universityRepository = universityRepository;
+        this.userToListConverter = userToListConverter;
     }
 
 
@@ -115,9 +117,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> findUsersByCourse(String title) {
-
-        return null;
+    public List<AllUsersDto> findUsersByCourse(String title) {
+        return userToListConverter.convert(userRepository.findAllByCourseContainsIgnoreCase(title));
     }
 
 
