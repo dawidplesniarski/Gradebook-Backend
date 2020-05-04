@@ -47,6 +47,7 @@ public class Grades {
         private Double grade;
         private LocalDateTime date;
         private Long studentId;
+        //private String subject;
 
         public Builder id(Long id){
             this.id = id;

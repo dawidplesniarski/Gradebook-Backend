@@ -114,5 +114,11 @@ public class UserServiceImpl implements UserService {
         userOptional.ifPresent(userRepository::delete);
     }
 
+    @Override
+    public List<UserDto> findUsersByCourse(String title) {
+
+        return null;
+    }
+
 
 }
