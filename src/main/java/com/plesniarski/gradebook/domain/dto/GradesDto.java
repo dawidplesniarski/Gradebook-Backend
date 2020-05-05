@@ -59,4 +59,12 @@ public class GradesDto {
             return new GradesDto(this);
         }
     }
+    public GradesDto dto(){
+        return new Builder()
+                .id(getId())
+                .grade(getGrade())
+                .date(getDate())
+                .studentId(getStudentId())
+                .build();
+    }
 }

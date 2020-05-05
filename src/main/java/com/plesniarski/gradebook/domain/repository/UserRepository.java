@@ -5,10 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByLogin(String login);
-
-    @Query("SELECT u.password from User u WHERE u.login = :userLogin ")
-    String getPassword(String userLogin);
+    List<User> findAllByCourseContainsIgnoreCase(String course);
+    @Query("SELECT DISTINCT u.course FROM User u WHERE u.course IS NOT NULL")
+    List<String> findCourses();
 }

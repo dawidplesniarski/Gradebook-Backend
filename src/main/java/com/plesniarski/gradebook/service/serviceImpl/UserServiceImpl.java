@@ -10,6 +10,7 @@ import com.plesniarski.gradebook.domain.entity.University;
 import com.plesniarski.gradebook.domain.entity.User;
 import com.plesniarski.gradebook.domain.repository.UniversityRepository;
 import com.plesniarski.gradebook.domain.repository.UserRepository;
+import com.plesniarski.gradebook.exceptions.LoginOrPasswordIncorrectException;
 import com.plesniarski.gradebook.exceptions.UserNotFoundException;
 import com.plesniarski.gradebook.service.UserService;
 import io.jsonwebtoken.Jwts;
@@ -28,13 +29,15 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final Converter<UserDto, User> convertUserToEntity;
     private final UniversityRepository universityRepository;
+    private final Converter<List<User>,List<AllUsersDto>> userToListConverter;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
-                           Converter<UserDto, User> convertToEntity, UniversityRepository universityRepository) {
+                           Converter<UserDto, User> convertToEntity, UniversityRepository universityRepository, Converter<List<User>, List<AllUsersDto>> userToListConverter) {
         this.userRepository = userRepository;
         this.convertUserToEntity = convertToEntity;
         this.universityRepository = universityRepository;
+        this.userToListConverter = userToListConverter;
     }
 
 
@@ -79,7 +82,7 @@ public class UserServiceImpl implements UserService {
         return user.dtoWithoutPass();
     }
 
-    public LoggedUser loggedUser(LoginUser loginUser){
+    public LoggedUser loggedUser(LoginUser loginUser) throws LoginOrPasswordIncorrectException {
         String token;
         Long now = System.currentTimeMillis();
 
@@ -88,7 +91,6 @@ public class UserServiceImpl implements UserService {
                     .setSubject(loginUser.getLogin())
                     .claim("roles","user")
                     .setIssuedAt(new Date(now))
-                    .setExpiration(new Date(now + 20000))
                     .signWith(SignatureAlgorithm.HS512, loginUser.getPassword())
                     .compact();
             AllUsersDto user = getLoggedUser(loginUser);
@@ -103,10 +105,26 @@ public class UserServiceImpl implements UserService {
                     .login(user.getLogin())
                     .course(user.getCourse())
                     .build();
+        }else{
+            throw new LoginOrPasswordIncorrectException();
         }
-        return null;
     }
 
+    @Override
+    public void deleteUserById(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        userOptional.ifPresent(userRepository::delete);
+    }
+
+    @Override
+    public List<AllUsersDto> findUsersByCourse(String title) {
+        return userToListConverter.convert(userRepository.findAllByCourseContainsIgnoreCase(title));
+    }
+
+    @Override
+    public List<String> findAllCourses() {
+        return userRepository.findCourses();
+    }
 
 
 }

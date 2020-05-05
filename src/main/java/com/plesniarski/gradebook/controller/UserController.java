@@ -6,10 +6,9 @@ import com.plesniarski.gradebook.domain.dto.AllUsersDto;
 import com.plesniarski.gradebook.domain.dto.UserDto;
 import com.plesniarski.gradebook.domain.dto.UserUniversityDto;
 import com.plesniarski.gradebook.domain.entity.User;
+import com.plesniarski.gradebook.exceptions.LoginOrPasswordIncorrectException;
 import com.plesniarski.gradebook.exceptions.UserNotFoundException;
 import com.plesniarski.gradebook.service.UserService;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,13 +38,26 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/getUser/{id}")
+    @GetMapping("/findUser/{id}")
     public ResponseEntity<UserUniversityDto> getUserById(@PathVariable Long id) throws UserNotFoundException {
         final UserUniversityDto user = userService.findUserById(id);
         return ResponseEntity.ok(user);
     }
     @PostMapping("/login")
-    public LoggedUser login(@RequestBody LoginUser loginUser){
+    public LoggedUser login(@RequestBody LoginUser loginUser) throws LoginOrPasswordIncorrectException {
         return userService.loggedUser(loginUser);
+    }
+    @DeleteMapping("/deleteUser/{id}")
+    public void deleteUser(@PathVariable Long id){
+        userService.deleteUserById(id);
+    }
+    @GetMapping("/findUsersByCourse/{course}")
+    public ResponseEntity<List<AllUsersDto>> findUsersByCourse(@PathVariable String course){
+        final List<AllUsersDto> users = userService.findUsersByCourse(course);
+        return ResponseEntity.ok(users);
+    }
+    @GetMapping("findAllCourses")
+    public ResponseEntity<List<String>> findAllCourses(){
+        return ResponseEntity.ok(userService.findAllCourses());
     }
 }
