@@ -26,36 +26,47 @@ public class UserController {
         this.userService = userService;
     }
 
+    @CrossOrigin
     @PostMapping("/addUser")
     public ResponseEntity<User> addUser(@RequestBody UserDto user){
         final User u = userService.addUser(user);
         return ResponseEntity.ok(u);
     }
 
+    @CrossOrigin
     @GetMapping("/findAll")
     public ResponseEntity<List<AllUsersDto>> findAllUsers(){
         final List<AllUsersDto> users = userService.findAllUsers();
         return ResponseEntity.ok(users);
     }
 
+    @CrossOrigin
     @GetMapping("/findUser/{id}")
     public ResponseEntity<UserUniversityDto> getUserById(@PathVariable Long id) throws UserNotFoundException {
         final UserUniversityDto user = userService.findUserById(id);
         return ResponseEntity.ok(user);
     }
+
+    @CrossOrigin
     @PostMapping("/login")
     public LoggedUser login(@RequestBody LoginUser loginUser) throws LoginOrPasswordIncorrectException {
         return userService.loggedUser(loginUser);
     }
+
+    @CrossOrigin
     @DeleteMapping("/deleteUser/{id}")
     public void deleteUser(@PathVariable Long id){
         userService.deleteUserById(id);
     }
+
+    @CrossOrigin
     @GetMapping("/findUsersByCourse/{course}")
     public ResponseEntity<List<AllUsersDto>> findUsersByCourse(@PathVariable String course){
         final List<AllUsersDto> users = userService.findUsersByCourse(course);
         return ResponseEntity.ok(users);
     }
+
+    @CrossOrigin
     @GetMapping("findAllCourses")
     public ResponseEntity<List<String>> findAllCourses(){
         return ResponseEntity.ok(userService.findAllCourses());

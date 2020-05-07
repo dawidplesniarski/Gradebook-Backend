@@ -19,12 +19,14 @@ public class UniversityController {
         this.universityService = universityService;
     }
 
+    @CrossOrigin
     @PostMapping("/add")
     public ResponseEntity<University> addUniversity(@RequestBody UniversityDto universityDto){
         final University university = universityService.addUniversity(universityDto);
         return ResponseEntity.ok(university);
     }
 
+    @CrossOrigin
     @GetMapping("/findAll")
     public ResponseEntity<List<University>> findAll(){
         List<University> universities = universityService.findAll();

@@ -20,16 +20,19 @@ public class GradesController {
         this.gradeService = gradeService;
     }
 
+    @CrossOrigin
     @PostMapping("/addGrade")
     public ResponseEntity<Grades> addGrade(@RequestBody GradesDto gradesDto){
         final Grades grades = gradeService.addGrade(gradesDto);
         return ResponseEntity.ok(grades);
     }
+    @CrossOrigin
     @GetMapping("/findAllGrades")
     public ResponseEntity<List<GradesDto>> findAll(){
         List<GradesDto> grades = gradeService.findAll();
         return ResponseEntity.ok(grades);
     }
+    @CrossOrigin
     @GetMapping("/findStudentGrades/{id}")
     public ResponseEntity<List<GradesDto>> getStudentGrades(@PathVariable Long id){
         final List<GradesDto> grades = gradeService.findByStudentId(id);
