@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByLogin(String login);
-    List<User> findAllByCourseContainsIgnoreCase(String course);
-    @Query("SELECT DISTINCT u.course FROM User u WHERE u.course IS NOT NULL")
-    List<String> findCourses();
+//    List<User> findAllByCourseContainsIgnoreCase(String course);
+//    @Query("SELECT DISTINCT u.course FROM User u WHERE u.course IS NOT NULL")
+//    List<String> findCourses();
 }

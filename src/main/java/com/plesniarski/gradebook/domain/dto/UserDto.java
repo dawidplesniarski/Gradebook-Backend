@@ -6,12 +6,12 @@ public class UserDto implements Serializable {
     private Long userId;
     private String name;
     private String lastName;
-    private Long albumNo;
+    private String albumNo;
     private boolean admin;
     private Long universityId;
     private String login;
     private String password;
-    private String course;
+    private Long courseId;
 
     public UserDto(){}
 
@@ -24,7 +24,7 @@ public class UserDto implements Serializable {
         universityId = builder.universityId;
         login = builder.login;
         password = builder.password;
-        course = builder.course;
+        courseId = builder.courseId;
     }
 
     public Long getUserId() {
@@ -39,7 +39,7 @@ public class UserDto implements Serializable {
         return lastName;
     }
 
-    public Long getAlbumNo() {
+    public String getAlbumNo() {
         return albumNo;
     }
 
@@ -59,20 +59,20 @@ public class UserDto implements Serializable {
         return password;
     }
 
-    public String getCourse() {
-        return course;
+    public Long getCourseId() {
+        return courseId;
     }
 
     public static final class Builder{
         private Long userId;
         private String name;
         private String lastName;
-        private Long albumNo;
+        private String albumNo;
         private boolean admin;
         private Long universityId;
         private String login;
         private String password;
-        private String course;
+        private Long courseId;
 
         public Builder id(Long userId){
             this.userId = userId;
@@ -86,7 +86,7 @@ public class UserDto implements Serializable {
             this.lastName = lastName;
             return this;
         }
-        public Builder albumNo(Long albumNo){
+        public Builder albumNo(String albumNo){
             this.albumNo = albumNo;
             return this;
         }
@@ -106,8 +106,8 @@ public class UserDto implements Serializable {
             this.password = password;
             return this;
         }
-        public Builder course(String course){
-            this.course = course;
+        public Builder course(Long courseId){
+            this.courseId = courseId;
             return this;
         }
 

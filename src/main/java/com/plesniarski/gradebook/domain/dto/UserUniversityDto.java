@@ -4,9 +4,10 @@ public class UserUniversityDto {
     private Long userId;
     private String name;
     private String lastName;
-    private Long albumNo;
+    private String albumNo;
     private Boolean admin;
     private String universityName;
+    private String courseName;
 
     public UserUniversityDto(Builder builder){
         userId = builder.userId;
@@ -15,6 +16,7 @@ public class UserUniversityDto {
         albumNo = builder.albumNo;
         admin = builder.admin;
         universityName = builder.universityName;
+        courseName = builder.courseName;
     }
 
     public Long getUserId() {
@@ -29,7 +31,7 @@ public class UserUniversityDto {
         return lastName;
     }
 
-    public Long getAlbumNo() {
+    public String getAlbumNo() {
         return albumNo;
     }
 
@@ -41,13 +43,18 @@ public class UserUniversityDto {
         return universityName;
     }
 
+    public String getCourseName(){
+        return courseName;
+    }
+
     public static final class Builder{
         private Long userId;
         private String name;
         private String lastName;
-        private Long albumNo;
+        private String albumNo;
         private Boolean admin;
         private String universityName;
+        private String courseName;
 
         public Builder userId(Long userId){
             this.userId = userId;
@@ -61,7 +68,7 @@ public class UserUniversityDto {
             this.lastName = lastName;
             return this;
         }
-        public Builder albumNo(Long albumNo){
+        public Builder albumNo(String albumNo){
             this.albumNo = albumNo;
             return this;
         }
@@ -71,6 +78,10 @@ public class UserUniversityDto {
         }
         public Builder universityName(String universityName){
             this.universityName = universityName;
+            return this;
+        }
+        public Builder courseName(String courseName){
+            this.courseName = courseName;
             return this;
         }
 

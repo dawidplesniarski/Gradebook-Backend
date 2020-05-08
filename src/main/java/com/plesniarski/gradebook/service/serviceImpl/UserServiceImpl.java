@@ -6,8 +6,10 @@ import com.plesniarski.gradebook.domain.converter.Converter;
 import com.plesniarski.gradebook.domain.dto.AllUsersDto;
 import com.plesniarski.gradebook.domain.dto.UserDto;
 import com.plesniarski.gradebook.domain.dto.UserUniversityDto;
+import com.plesniarski.gradebook.domain.entity.Courses;
 import com.plesniarski.gradebook.domain.entity.University;
 import com.plesniarski.gradebook.domain.entity.User;
+import com.plesniarski.gradebook.domain.repository.CoursesRepository;
 import com.plesniarski.gradebook.domain.repository.UniversityRepository;
 import com.plesniarski.gradebook.domain.repository.UserRepository;
 import com.plesniarski.gradebook.exceptions.LoginOrPasswordIncorrectException;
@@ -29,14 +31,16 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final Converter<UserDto, User> convertUserToEntity;
     private final UniversityRepository universityRepository;
+    private final CoursesRepository coursesRepository;
     private final Converter<List<User>,List<AllUsersDto>> userToListConverter;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
-                           Converter<UserDto, User> convertToEntity, UniversityRepository universityRepository, Converter<List<User>, List<AllUsersDto>> userToListConverter) {
+                           Converter<UserDto, User> convertToEntity, UniversityRepository universityRepository, CoursesRepository coursesRepository, Converter<List<User>, List<AllUsersDto>> userToListConverter) {
         this.userRepository = userRepository;
         this.convertUserToEntity = convertToEntity;
         this.universityRepository = universityRepository;
+        this.coursesRepository = coursesRepository;
         this.userToListConverter = userToListConverter;
     }
 
@@ -55,6 +59,7 @@ public class UserServiceImpl implements UserService {
     public UserUniversityDto findUserById(long id) throws UserNotFoundException {
         UserDto user = userRepository.findById(id).orElseThrow(UserNotFoundException::new).dto();
         Optional<University> university = universityRepository.findById(user.getUniversityId());
+        Optional<Courses> course = coursesRepository.findById(user.getCourseId());
         return new UserUniversityDto.Builder()
                 .userId(user.getUserId())
                 .name(user.getName())
@@ -62,6 +67,7 @@ public class UserServiceImpl implements UserService {
                 .albumNo(user.getAlbumNo())
                 .isAdmin(user.isAdmin())
                 .universityName(university.get().getUniversityName())
+                .courseName(course.get().getCourse())
                 .build();
     }
 
@@ -115,16 +121,16 @@ public class UserServiceImpl implements UserService {
         Optional<User> userOptional = userRepository.findById(id);
         userOptional.ifPresent(userRepository::delete);
     }
-
-    @Override
-    public List<AllUsersDto> findUsersByCourse(String title) {
-        return userToListConverter.convert(userRepository.findAllByCourseContainsIgnoreCase(title));
-    }
-
-    @Override
-    public List<String> findAllCourses() {
-        return userRepository.findCourses();
-    }
+//
+//    @Override
+//    public List<AllUsersDto> findUsersByCourse(String title) {
+//        return userToListConverter.convert(userRepository.findAllByCourseContainsIgnoreCase(title));
+//    }
+//
+//    @Override
+//    public List<String> findAllCourses() {
+//        return userRepository.findCourses();
+//    }
 
 
 }
