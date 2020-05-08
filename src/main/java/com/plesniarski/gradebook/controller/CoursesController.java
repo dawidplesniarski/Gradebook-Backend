@@ -31,4 +31,10 @@ public class CoursesController {
     public ResponseEntity<List<CoursesDto>> findAllCourses(){
         return ResponseEntity.ok(coursesService.findAll());
     }
+
+    @CrossOrigin
+    @GetMapping("/findCourse/{id}")
+    public ResponseEntity<Courses> findById(@PathVariable Long id){
+        return ResponseEntity.of(coursesService.findById(id));
+    }
 }

@@ -19,6 +19,5 @@ public interface UserService {
     AllUsersDto getLoggedUser(LoginUser loginUser);
     LoggedUser loggedUser(LoginUser loginUser) throws LoginOrPasswordIncorrectException;
     void deleteUserById(Long id);
-//    List<AllUsersDto> findUsersByCourse(String title);
-//    List<String> findAllCourses();
+    List<AllUsersDto> findUsersByUniversityId(Long id);
     }

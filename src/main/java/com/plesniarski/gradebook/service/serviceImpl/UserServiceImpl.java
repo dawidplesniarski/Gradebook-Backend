@@ -20,6 +20,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -122,16 +123,11 @@ public class UserServiceImpl implements UserService {
         Optional<User> userOptional = userRepository.findById(id);
         userOptional.ifPresent(userRepository::delete);
     }
-//
-//    @Override
-//    public List<AllUsersDto> findUsersByCourse(String title) {
-//        return userToListConverter.convert(userRepository.findAllByCourseContainsIgnoreCase(title));
-//    }
-//
-//    @Override
-//    public List<String> findAllCourses() {
-//        return userRepository.findCourses();
-//    }
+
+    @Override
+    public List<AllUsersDto> findUsersByUniversityId(Long id) {
+        return userToListConverter.convert(userRepository.findAllByUniversityId(id));
+    }
 
 
 }
