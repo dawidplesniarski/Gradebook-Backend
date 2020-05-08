@@ -8,6 +8,7 @@ public class UserUniversityDto {
     private Boolean admin;
     private String universityName;
     private String courseName;
+    private String login;
 
     public UserUniversityDto(Builder builder){
         userId = builder.userId;
@@ -17,6 +18,7 @@ public class UserUniversityDto {
         admin = builder.admin;
         universityName = builder.universityName;
         courseName = builder.courseName;
+        login = builder.login;
     }
 
     public Long getUserId() {
@@ -47,6 +49,10 @@ public class UserUniversityDto {
         return courseName;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
     public static final class Builder{
         private Long userId;
         private String name;
@@ -55,6 +61,7 @@ public class UserUniversityDto {
         private Boolean admin;
         private String universityName;
         private String courseName;
+        private String login;
 
         public Builder userId(Long userId){
             this.userId = userId;
@@ -82,6 +89,10 @@ public class UserUniversityDto {
         }
         public Builder courseName(String courseName){
             this.courseName = courseName;
+            return this;
+        }
+        public Builder login(String login){
+            this.login = login;
             return this;
         }
 

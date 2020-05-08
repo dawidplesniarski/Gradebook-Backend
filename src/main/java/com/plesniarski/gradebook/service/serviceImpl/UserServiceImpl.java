@@ -66,6 +66,7 @@ public class UserServiceImpl implements UserService {
                 .lastName(user.getLastName())
                 .albumNo(user.getAlbumNo())
                 .isAdmin(user.isAdmin())
+                .login(user.getLogin())
                 .universityName(university.get().getUniversityName())
                 .courseName(course.get().getCourse())
                 .build();

@@ -136,6 +136,7 @@ public class User {
                 .albumNo(getAlbumNo())
                 .universityId(getUniversityId())
                 .course(getCourseId())
+                .login(getLogin())
                 .build();
     }
     public AllUsersDto dtoWithoutPass(){
