@@ -18,7 +18,7 @@ public class DtoToUserMapper implements Converter<UserDto, User> {
                 .universityId(from.getUniversityId())
                 .login(from.getLogin())
                 .password(from.getPassword())
-                .course(from.getCourse())
+                .course(from.getCourseId())
                 .build();
     }
 }

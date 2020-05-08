@@ -18,7 +18,7 @@ public class UserToAllMapper implements Converter<User, AllUsersDto> {
                 .albumNo(from.getAlbumNo())
                 .admin(from.isAdmin())
                 .universityId(from.getUniversityId())
-                .course(from.getCourse())
+                .course(from.getCourseId())
                 .login(from.getLogin())
                 .build();
     }

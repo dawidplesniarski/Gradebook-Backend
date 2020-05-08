@@ -19,7 +19,7 @@ public class UserListMapper implements Converter<List<User>,List<AllUsersDto>> {
                             .lastName(dto.getLastName())
                             .albumNo(dto.getAlbumNo())
                             .admin(dto.isAdmin())
-                            .course(dto.getCourse())
+                            .course(dto.getCourseId())
                             .id(dto.getUserId())
                             .login(dto.getLogin())
                             .universityId(dto.getUniversityId())

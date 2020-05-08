@@ -60,15 +60,8 @@ public class UserController {
     }
 
     @CrossOrigin
-    @GetMapping("/findUsersByCourse/{course}")
-    public ResponseEntity<List<AllUsersDto>> findUsersByCourse(@PathVariable String course){
-        final List<AllUsersDto> users = userService.findUsersByCourse(course);
-        return ResponseEntity.ok(users);
-    }
-
-    @CrossOrigin
-    @GetMapping("findAllCourses")
-    public ResponseEntity<List<String>> findAllCourses(){
-        return ResponseEntity.ok(userService.findAllCourses());
+    @GetMapping("/findByUniversity/{id}")
+    public ResponseEntity<List<AllUsersDto>> findUsersByUniversityId(@PathVariable Long id){
+        return ResponseEntity.ok(userService.findUsersByUniversityId(id));
     }
 }
