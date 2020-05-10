@@ -137,6 +137,7 @@ public class User {
                 .universityId(getUniversityId())
                 .course(getCourseId())
                 .login(getLogin())
+                .admin(isAdmin())
                 .build();
     }
     public AllUsersDto dtoWithoutPass(){
