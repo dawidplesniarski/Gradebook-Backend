@@ -1,5 +1,8 @@
 package com.plesniarski.gradebook.authentication;
 
+import com.plesniarski.gradebook.domain.repository.UserRepository;
+import com.plesniarski.gradebook.service.UserService;
+import com.plesniarski.gradebook.service.serviceImpl.UserServiceImpl;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureException;
@@ -14,6 +17,8 @@ import java.io.IOException;
 public class JwtFilter implements javax.servlet.Filter {
     private String key;
 
+    UserService userService;
+
     public String getKey() {
         return key;
     }
@@ -21,7 +26,6 @@ public class JwtFilter implements javax.servlet.Filter {
     public void setKey(String key) {
         this.key = key;
     }
-
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
@@ -33,7 +37,8 @@ public class JwtFilter implements javax.servlet.Filter {
         } else {
             try {
                 String token = header.substring(7);
-                Claims claims = Jwts.parser().setSigningKey("zaqwsx").parseClaimsJws(token).getBody();
+                System.out.println(UserServiceImpl.userPassword);
+                Claims claims = Jwts.parser().setSigningKey(UserServiceImpl.userPassword).parseClaimsJws(token).getBody();
                 servletRequest.setAttribute("claims", claims);
             } catch (final SignatureException e) {
                 throw new ServletException("Invalid token");
