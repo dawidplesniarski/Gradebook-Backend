@@ -16,8 +16,6 @@ import java.io.IOException;
 public class JwtFilter implements javax.servlet.Filter {
     private String key;
 
-    UserService userService;
-
     public String getKey() {
         return key;
     }
@@ -29,15 +27,13 @@ public class JwtFilter implements javax.servlet.Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
 
-        String header = httpServletRequest.getHeader("authorization");
+        String header = httpServletRequest.getHeader("auth-token");
 
-        if (header == null || !header.startsWith("Bearer ")) {
+        if (header == null) {
             throw new ServletException("Missing or invalid Authorization header");
         } else {
             try {
-                String token = header.substring(7);
-                System.out.println(UserServiceImpl.userPassword);
-                Claims claims = Jwts.parser().setSigningKey(UserServiceImpl.userPassword).parseClaimsJws(token).getBody();
+                Claims claims = Jwts.parser().setSigningKey(UserServiceImpl.userPassword).parseClaimsJws(header).getBody();
                 servletRequest.setAttribute("claims", claims);
             } catch (final SignatureException e) {
                 throw new ServletException("Invalid token");
