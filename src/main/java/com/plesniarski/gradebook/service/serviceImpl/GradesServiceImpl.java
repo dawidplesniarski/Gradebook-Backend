@@ -27,6 +27,7 @@ public class GradesServiceImpl implements GradeService {
     public Grades addGrade(GradesDto gradesDto) {
         Grades grades = new Grades.Builder()
                 .grade(gradesDto.getGrade())
+                .subject(gradesDto.getSubject())
                 .date(LocalDateTime.now())
                 .studentId(gradesDto.getStudentId())
                 .build();

@@ -16,6 +16,7 @@ public class GradesListToDto implements Converter<List<Grades>, List<GradesDto>>
                 .map(grade -> {
                     return new GradesDto.Builder()
                             .id(grade.getId())
+                            .subject(grade.getSubject())
                             .grade(grade.getGrade())
                             .date(grade.getDate())
                             .studentId(grade.getStudentId())
