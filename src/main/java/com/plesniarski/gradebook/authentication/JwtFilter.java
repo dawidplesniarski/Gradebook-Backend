@@ -1,6 +1,5 @@
 package com.plesniarski.gradebook.authentication;
 
-import com.plesniarski.gradebook.domain.repository.UserRepository;
 import com.plesniarski.gradebook.service.UserService;
 import com.plesniarski.gradebook.service.serviceImpl.UserServiceImpl;
 import io.jsonwebtoken.Claims;
