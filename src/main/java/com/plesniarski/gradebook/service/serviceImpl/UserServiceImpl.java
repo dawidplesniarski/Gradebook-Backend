@@ -20,7 +20,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +27,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    public static String userPassword;
 
     private final UserRepository userRepository;
     private final Converter<UserDto, User> convertUserToEntity;
@@ -59,7 +60,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserUniversityDto findUserById(long id) throws UserNotFoundException {
         UserDto user = userRepository.findById(id).orElseThrow(UserNotFoundException::new).dto();
-        System.out.println(user.isAdmin());
         Optional<University> university = universityRepository.findById(user.getUniversityId());
         Optional<Courses> course = coursesRepository.findById(user.getCourseId());
         return new UserUniversityDto.Builder()
@@ -102,7 +102,9 @@ public class UserServiceImpl implements UserService {
                     .setIssuedAt(new Date(now))
                     .signWith(SignatureAlgorithm.HS512, loginUser.getPassword())
                     .compact();
+            userPassword = loginUser.getPassword();
             AllUsersDto user = getLoggedUser(loginUser);
+
             return new LoggedUser.Builder()
                     .token(token)
                     .id(user.getUserId())
@@ -129,6 +131,5 @@ public class UserServiceImpl implements UserService {
     public List<AllUsersDto> findUsersByUniversityId(Long id) {
         return userToListConverter.convert(userRepository.findAllByUniversityId(id));
     }
-
 
 }

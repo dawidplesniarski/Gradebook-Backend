@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 public class GradesDto {
     private Long id;
     private Double grade;
+    private String subject;
     private LocalDateTime date;
     private Long studentId;
 
@@ -15,6 +16,7 @@ public class GradesDto {
         grade = builder.grade;
         date = builder.date;
         studentId = builder.studentId;
+        subject = builder.subject;
     }
 
     public Long getId() {
@@ -33,14 +35,23 @@ public class GradesDto {
         return studentId;
     }
 
+    public String getSubject() {
+        return subject;
+    }
+
     public static final class Builder{
         private Long id;
         private Double grade;
+        private String subject;
         private LocalDateTime date;
         private Long studentId;
 
         public Builder id(Long id){
             this.id = id;
+            return this;
+        }
+        public Builder subject(String subject){
+            this.subject = subject;
             return this;
         }
         public Builder grade(Double grade){
@@ -63,6 +74,7 @@ public class GradesDto {
         return new Builder()
                 .id(getId())
                 .grade(getGrade())
+                .subject(getSubject())
                 .date(getDate())
                 .studentId(getStudentId())
                 .build();

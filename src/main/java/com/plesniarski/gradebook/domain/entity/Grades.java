@@ -12,6 +12,7 @@ public class Grades {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private double grade;
+    private String subject;
     @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE NOT NULL")
     LocalDateTime date;
     private Long studentId;
@@ -20,6 +21,7 @@ public class Grades {
 
     public Grades(Builder builder){
         id = builder.id;
+        subject = builder.subject;
         grade = builder.grade;
         date = builder.date;
         studentId = builder.studentId;
@@ -41,16 +43,24 @@ public class Grades {
         return studentId;
     }
 
+    public String getSubject() {
+        return subject;
+    }
 
     public static final class Builder{
         private Long id;
         private Double grade;
+        private String subject;
         private LocalDateTime date;
         private Long studentId;
-        //private String subject;
 
         public Builder id(Long id){
             this.id = id;
+            return this;
+        }
+
+        public Builder subject(String subject){
+            this.subject = subject;
             return this;
         }
 
@@ -75,7 +85,7 @@ public class Grades {
     }
 
     public GradesDto dto(){
-        return new GradesDto.Builder().id(getId()).grade(getGrade()).date(getDate()).studentId(getStudentId()).build();
+        return new GradesDto.Builder().id(getId()).subject(getSubject()).grade(getGrade()).date(getDate()).studentId(getStudentId()).build();
     }
 
 
