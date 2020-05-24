@@ -4,8 +4,12 @@ import com.plesniarski.gradebook.domain.dto.GradesDto;
 import com.plesniarski.gradebook.domain.entity.Grades;
 import com.plesniarski.gradebook.service.GradeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.util.List;
 
@@ -14,6 +18,16 @@ import java.util.List;
 public class GradesController {
 
     final GradeService gradeService;
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("*");
+            }
+        };
+    }
 
     @Autowired
     public GradesController(GradeService gradeService) {
@@ -37,5 +51,10 @@ public class GradesController {
     public ResponseEntity<List<GradesDto>> getStudentGrades(@PathVariable Long id){
         final List<GradesDto> grades = gradeService.findByStudentId(id);
         return ResponseEntity.ok(grades);
+    }
+    @CrossOrigin
+    @DeleteMapping("/deleteGrade/{id}")
+    public void deleteGrade(@PathVariable Long id){
+        gradeService.deleteGrade(id);
     }
 }
