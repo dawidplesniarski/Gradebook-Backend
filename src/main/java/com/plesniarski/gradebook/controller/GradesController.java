@@ -52,4 +52,9 @@ public class GradesController {
         final List<GradesDto> grades = gradeService.findByStudentId(id);
         return ResponseEntity.ok(grades);
     }
+    @CrossOrigin
+    @DeleteMapping("/deleteGrade/{id}")
+    public void deleteGrade(@PathVariable Long id){
+        gradeService.deleteGrade(id);
+    }
 }

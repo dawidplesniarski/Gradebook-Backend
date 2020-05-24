@@ -45,4 +45,9 @@ public class GradesServiceImpl implements GradeService {
     public List<GradesDto> findByStudentId(Long studentId) {
         return gradesListToDto.convert(gradesRepository.findAllByStudentId(studentId));
     }
+
+    @Override
+    public void deleteGrade(Long gradeId) {
+        gradesRepository.deleteById(gradeId);
+    }
 }

@@ -9,4 +9,5 @@ public interface GradeService {
     Grades addGrade(GradesDto gradesDto);
     List<GradesDto> findAll();
     List<GradesDto> findByStudentId(Long studentId);
+    void deleteGrade(Long gradeId);
 }

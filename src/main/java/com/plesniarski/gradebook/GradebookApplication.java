@@ -23,9 +23,7 @@ public class GradebookApplication {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
         filterRegistrationBean.setFilter(new JwtFilter());
         filterRegistrationBean.addUrlPatterns(
-                "/grades/addGrade",
-                "/user/findAll",
-                "/user/findUser/*");
+                "/grades/addGrade");
         return filterRegistrationBean;
     }
 
