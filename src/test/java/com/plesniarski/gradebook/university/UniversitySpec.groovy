@@ -1,7 +1,6 @@
 package com.plesniarski.gradebook.university
 
 import spock.lang.Specification
-import groovyx.net.http.HttpResponseException
 import groovyx.net.http.RESTClient
 import spock.lang.Shared
 import static groovyx.net.http.ContentType.*
