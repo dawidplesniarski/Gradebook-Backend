@@ -31,7 +31,7 @@ public class UserController {
     @PostMapping("/addUser")
     public ResponseEntity<User> addUser(@RequestBody UserDto user){
         final User u = userService.addUser(user);
-        return ResponseEntity.ok(u);
+        return ResponseEntity.status(201).body(u);
     }
 
     @CrossOrigin
