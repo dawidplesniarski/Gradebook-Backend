@@ -36,4 +36,25 @@ class UserLoginSpec extends Specification {
         HttpResponseException e = thrown(HttpResponseException);
         assert e.response.status == 401: 'response code should be 400 if provided incorrect album id parameter'
     }
+
+    def "should return list of students found by university ID" () {
+        when: "try to find students by university ID"
+        def response = client.get(path: "user/findByUniversity/1");
+        then: "should return 200 status and list of students"
+        with (response) {
+            status == 200
+            data.size > 0
+        }
+    }
+
+    def "should return user by ID" () {
+        when: "try to find user by ID"
+        def response = client.get(path: "user/findUser/1");
+        then: "should return 200 status and user"
+        with (response) {
+            status == 200
+            data != null
+        }
+    }
+
 }
