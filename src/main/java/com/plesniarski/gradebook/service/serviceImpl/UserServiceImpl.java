@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
         return user.dtoWithoutPass();
     }
 
-    public LoggedUser loggedUser(LoginUser loginUser) throws LoginOrPasswordIncorrectException {
+    public LoggedUser loggedUser(LoginUser loginUser) {
         String token;
         Long now = System.currentTimeMillis();
 
@@ -117,7 +117,7 @@ public class UserServiceImpl implements UserService {
                     .course(user.getCourse())
                     .build();
         }else{
-            throw new LoginOrPasswordIncorrectException();
+            return null;
         }
     }
 

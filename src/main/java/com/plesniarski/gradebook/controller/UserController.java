@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -30,7 +31,7 @@ public class UserController {
     @PostMapping("/addUser")
     public ResponseEntity<User> addUser(@RequestBody UserDto user){
         final User u = userService.addUser(user);
-        return ResponseEntity.ok(u);
+        return ResponseEntity.status(201).body(u);
     }
 
     @CrossOrigin
@@ -49,8 +50,12 @@ public class UserController {
 
     @CrossOrigin
     @PostMapping("/login")
-    public LoggedUser login(@RequestBody LoginUser loginUser) throws LoginOrPasswordIncorrectException {
-        return userService.loggedUser(loginUser);
+    public ResponseEntity<LoggedUser> login(@RequestBody LoginUser loginUser) {
+            LoggedUser loggedUserOptional = userService.loggedUser(loginUser);
+            if(loggedUserOptional == null) {
+                return ResponseEntity.status(401).body(null);
+            }
+            return ResponseEntity.ok(loggedUserOptional);
     }
 
     @CrossOrigin

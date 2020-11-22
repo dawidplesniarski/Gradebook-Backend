@@ -23,7 +23,7 @@ public class UniversityController {
     @PostMapping("/add")
     public ResponseEntity<University> addUniversity(@RequestBody UniversityDto universityDto){
         final University university = universityService.addUniversity(universityDto);
-        return ResponseEntity.ok(university);
+        return ResponseEntity.status(201).body(university);
     }
 
     @CrossOrigin

@@ -17,7 +17,7 @@ public interface UserService {
     UserUniversityDto findUserById(long id) throws UserNotFoundException;
     Boolean loginValidation(LoginUser loginUser);
     AllUsersDto getLoggedUser(LoginUser loginUser);
-    LoggedUser loggedUser(LoginUser loginUser) throws LoginOrPasswordIncorrectException;
+    LoggedUser loggedUser(LoginUser loginUser);
     void deleteUserById(Long id);
     List<AllUsersDto> findUsersByUniversityId(Long id);
     }

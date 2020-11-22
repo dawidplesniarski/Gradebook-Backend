@@ -23,7 +23,7 @@ public class CoursesController {
     @CrossOrigin
     @PostMapping("/addCourse")
     public ResponseEntity<Courses> addCourse(@RequestBody CoursesDto coursesDto){
-        return ResponseEntity.ok(coursesService.addCourse(coursesDto));
+        return ResponseEntity.status(201).body(coursesService.addCourse(coursesDto));
     }
 
     @CrossOrigin
