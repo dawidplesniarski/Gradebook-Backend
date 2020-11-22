@@ -18,7 +18,7 @@ class GradesSpec extends Specification {
                         studentId: studentId
                 ],
                 contentType: JSON,
-        headers: ["auth-token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXdpZCIsInJvbGVzIjoidXNlciIsImlhdCI6MTYwNjA2MTEwOH0.fMGjj597FdfEnZfcSNjQhhXxTMQMdLvBGLQ-eZF7b_vutB93MyBX2bk86LoPDTFR3iYSsXGluD1X4CBUAY2E0A"])
+        headers: ["auth-token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkYXdpZCIsInJvbGVzIjoidXNlciIsImlhdCI6MTYwNjA2MzY3N30.C2m3izfEREWAONF3PDhlXN0k-bcoiE2yKHtEisk_TyzKwXgDRYYwk_SRCUJWYnW01dob0MD-ir90eatRUZbIlg"])
         then: "should return 200 status and add grades"
         assert response.status == 200
         where:
